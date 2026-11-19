@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
+/** Validation outcomes map to localized strings in the UI layer. */
+enum class IntakeError { NAME_REQUIRED, QUANTITY_INVALID, UNIT_COST_INVALID, WEIGHT_CONVERSION_INCOMPLETE }
+
 data class IntakeUiState(
     val nameEn: String = "",
     val nameAr: String = "",
@@ -24,7 +27,7 @@ data class IntakeUiState(
     val unitCost: String = "",
     val metersPerBolt: String = "",
     val notes: String = "",
-    val error: String? = null,
+    val error: IntakeError? = null,
     val saved: Boolean = false,
 )
 
@@ -33,28 +36,63 @@ class IntakeViewModel(private val container: AppContainer, private val batchId: 
     private val _state = MutableStateFlow(IntakeUiState())
     val state: StateFlow<IntakeUiState> = _state.asStateFlow()
 
+    init {
+        if (batchId != null) {
+            viewModelScope.launch {
+                val existing = container.batchRepository.getById(batchId) ?: return@launch
+                _state.update {
+                    it.copy(
+                        nameEn = existing.nameEn,
+                        nameAr = existing.nameAr,
+                        supplierEn = existing.supplierEn,
+                        supplierAr = existing.supplierAr,
+                        unit = existing.purchaseUnit,
+                        quantity = existing.quantity.toPlainString(),
+                        gsm = existing.gsm?.toPlainString().orEmpty(),
+                        widthCm = existing.widthCm?.toPlainString().orEmpty(),
+                        unitCost = existing.unitCost.toPlainString(),
+                        metersPerBolt = existing.metersPerBolt?.toPlainString().orEmpty(),
+                        notes = existing.notes,
+                    )
+                }
+            }
+        }
+    }
+
     fun update(transform: IntakeUiState.() -> IntakeUiState) = _state.update(transform)
+
+    fun setUnit(unit: PurchaseUnit) = _state.update { it.copy(unit = unit) }
 
     fun save() {
         val s = _state.value
         val qty = s.quantity.toBigDecimalOrNull()
         val cost = s.unitCost.toBigDecimalOrNull()
+
         if (s.nameEn.isBlank() && s.nameAr.isBlank()) {
-            _state.update { it.copy(error = "Name required (EN or AR)") }
+            _state.update { it.copy(error = IntakeError.NAME_REQUIRED) }
             return
         }
         if (qty == null || qty.signum() <= 0) {
-            _state.update { it.copy(error = "Valid quantity required") }
+            _state.update { it.copy(error = IntakeError.QUANTITY_INVALID) }
             return
         }
         if (cost == null || cost.signum() < 0) {
-            _state.update { it.copy(error = "Valid unit cost required") }
+            _state.update { it.copy(error = IntakeError.UNIT_COST_INVALID) }
             return
         }
+        if (s.unit == PurchaseUnit.KG && (s.gsm.toBigDecimalOrNull() == null || s.widthCm.toBigDecimalOrNull() == null)) {
+            _state.update { it.copy(error = IntakeError.WEIGHT_CONVERSION_INCOMPLETE) }
+            return
+        }
+        if (s.unit == PurchaseUnit.BOLT && (s.metersPerBolt.toBigDecimalOrNull() ?: BigDecimal.ZERO).signum() <= 0) {
+            _state.update { it.copy(error = IntakeError.WEIGHT_CONVERSION_INCOMPLETE) }
+            return
+        }
+
         viewModelScope.launch {
             val now = System.currentTimeMillis()
             val batch = FabricBatch(
-                id = batchId ?: "b-${now.toString(36)}",
+                id = batchId ?: "b-" + now.toString(36),
                 nameEn = s.nameEn.trim(),
                 nameAr = s.nameAr.trim(),
                 supplierEn = s.supplierEn.trim(),

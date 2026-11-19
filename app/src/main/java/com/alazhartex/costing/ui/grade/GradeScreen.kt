@@ -11,9 +11,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.alazhartex.costing.R
 import com.alazhartex.costing.di.AppContainer
+import com.alazhartex.costing.domain.engine.GradeYieldEngine
 import com.alazhartex.costing.domain.engine.Result
+import com.alazhartex.costing.ui.common.ErrorText
 import com.alazhartex.costing.ui.common.InfoCard
 import com.alazhartex.costing.ui.common.LabeledField
 import com.alazhartex.costing.ui.common.ScreenScaffold
@@ -25,35 +29,62 @@ fun GradeScreen(container: AppContainer, batchId: String, onNext: () -> Unit, on
     var first by remember { mutableStateOf("") }
     var second by remember { mutableStateOf("") }
     var reject by remember { mutableStateOf("") }
-    var result by remember { mutableStateOf<String?>(null) }
+    var lines by remember { mutableStateOf<List<String>>(emptyList()) }
+    var error by remember { mutableStateOf<String?>(null) }
 
-    ScreenScaffold(title = "Grade Yield & Loss", onBack = onBack) {
+    ScreenScaffold(title = stringResource(R.string.nav_grade_yield), onBack = onBack) {
         Column {
-            LabeledField("Total output", total) { total = it }
+            LabeledField(stringResource(R.string.grade_total_output), total) { total = it }
             Spacer(Modifier.height(8.dp))
-            LabeledField("First grade", first) { first = it }
+            LabeledField(stringResource(R.string.grade_first), first) { first = it }
             Spacer(Modifier.height(8.dp))
-            LabeledField("Second grade", second) { second = it }
+            LabeledField(stringResource(R.string.grade_second), second) { second = it }
             Spacer(Modifier.height(8.dp))
-            LabeledField("Reject", reject) { reject = it }
+            LabeledField(stringResource(R.string.grade_reject), reject) { reject = it }
             Spacer(Modifier.height(12.dp))
+
+            val errorNegative = stringResource(R.string.grade_error_negative)
+            val errorExceeds = stringResource(R.string.grade_error_exceeds)
+            val compensationLabel = stringResource(R.string.grade_compensation_required)
             Button(onClick = {
-                val t = total.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                val q1 = first.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                val q2 = second.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                val qr = reject.toBigDecimalOrNull() ?: BigDecimal.ZERO
-                when (val r = container.gradeYieldEngine.compute(batchId, t, q1, q2, qr)) {
+                val outcome = container.gradeYieldEngine.compute(
+                    batchId = batchId,
+                    totalOutput = total.toBigDecimalOrNull() ?: BigDecimal.ZERO,
+                    qFirst = first.toBigDecimalOrNull() ?: BigDecimal.ZERO,
+                    qSecond = second.toBigDecimalOrNull() ?: BigDecimal.ZERO,
+                    qReject = reject.toBigDecimalOrNull() ?: BigDecimal.ZERO,
+                )
+                when (outcome) {
                     is Result.Success -> {
-                        val g = r.value
-                        result = "First ${g.pctFirst}% · Second ${g.pctSecond}% · Reject ${g.pctReject}%" +
-                            if (g.compensationRequired) " · Compensation required" else ""
+                        val g = outcome.value
+                        error = null
+                        val summary = buildString {
+                            append(g.pctFirst.toPlainString()).append("% / ")
+                            append(g.pctSecond.toPlainString()).append("% / ")
+                            append(g.pctReject.toPlainString()).append("%")
+                        }
+                        lines = if (g.compensationRequired) {
+                            listOf(summary, compensationLabel)
+                        } else {
+                            listOf(summary)
+                        }
                     }
-                    is Result.Failure -> result = "Invalid: ${r.error}"
+                    is Result.Failure -> {
+                        lines = emptyList()
+                        error = when (outcome.error) {
+                            is GradeYieldEngine.GradeError.NegativeQuantity -> errorNegative
+                            is GradeYieldEngine.GradeError.GradesExceedOutput -> errorExceeds
+                        }
+                    }
                 }
-            }) { Text("Calculate") }
-            result?.let { InfoCard("Result", listOf(it)) }
+            }) { Text(stringResource(R.string.action_calculate)) }
+
+            error?.let { ErrorText(it) }
+            if (lines.isNotEmpty()) {
+                InfoCard(title = stringResource(R.string.nav_grade_yield), lines = lines)
+            }
             Spacer(Modifier.height(12.dp))
-            Button(onClick = onNext) { Text("Next: Cost breakdown") }
+            Button(onClick = onNext) { Text(stringResource(R.string.action_next_cost)) }
         }
     }
 }
