@@ -13,3 +13,9 @@ schemas/
 *.local.properties
 secrets.properties
 **/secrets/
+
+
+# Release signing material — never commit
+keystore.properties
+*.jks
+*.keystore
