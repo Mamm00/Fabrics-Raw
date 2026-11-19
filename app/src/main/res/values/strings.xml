@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Al Azhar Tex Costing</string>
+
+    <!-- Navigation / screen titles -->
     <string name="nav_dashboard">Dashboard</string>
     <string name="nav_batches">Batches</string>
     <string name="nav_shrinkage">Shrinkage</string>
-    <string name="nav_grade_yield">Grade Yield</string>
+    <string name="nav_grade_yield">Grade Yield &amp; Loss</string>
     <string name="nav_cost">Cost Breakdown</string>
-    <string name="nav_pricing">Pricing</string>
-    <string name="nav_benchmark">Benchmark</string>
+    <string name="nav_pricing">Pricing &amp; Compensation</string>
+    <string name="nav_benchmark">Benchmark Insight</string>
     <string name="nav_settings">Settings</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Back</string>
+    <string name="action_calculate">Calculate</string>
+    <string name="action_next_pricing">Next: Pricing</string>
+    <string name="action_next_grade">Next: Grade yield</string>
+    <string name="action_next_cost">Next: Cost breakdown</string>
+    <string name="action_solve_first_price">Solve first-grade price</string>
     <string name="action_analyze">Analyze this operation</string>
+    <string name="action_add_batch">Add batch</string>
+    <string name="action_open">Open</string>
+    <string name="action_save_batch">Save batch</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_batches_count">Batches: %1$d</string>
+
+    <!-- Batch list -->
+    <string name="batch_list_empty">No batches yet. Add your first fabric batch.</string>
+
+    <!-- Intake -->
+    <string name="intake_title">Batch Intake</string>
+    <string name="intake_name_en">Name (EN)</string>
+    <string name="intake_name_ar">Name (AR)</string>
+    <string name="intake_supplier_en">Supplier (EN)</string>
+    <string name="intake_supplier_ar">Supplier (AR)</string>
+    <string name="intake_quantity">Quantity</string>
+    <string name="intake_gsm">GSM</string>
+    <string name="intake_width_cm">Width (cm)</string>
+    <string name="intake_unit_cost">Unit cost</string>
+    <string name="intake_meters_per_bolt">Meters / bolt</string>
+    <string name="intake_notes">Notes</string>
+    <string name="intake_error_name">Name required (EN or AR)</string>
+    <string name="intake_error_quantity">Valid quantity required</string>
+    <string name="intake_error_unit_cost">Valid unit cost required</string>
+    <string name="intake_error_conversion">Provide GSM and width for kg pricing, or meters per bolt for bolts</string>
+
+    <!-- Shrinkage -->
+    <string name="shrinkage_warp_original">Warp original</string>
+    <string name="shrinkage_warp_final">Warp final</string>
+    <string name="shrinkage_weft_original">Weft original</string>
+    <string name="shrinkage_weft_final">Weft final</string>
+    <string name="shrinkage_allow_growth">Allow growth (negative shrinkage)</string>
+    <string name="shrinkage_result">Warp %1$s%% · Weft %2$s%% · Flags: %3$s</string>
+    <string name="shrinkage_flag_none">none</string>
+
+    <!-- Grade yield -->
+    <string name="grade_total_output">Total output</string>
+    <string name="grade_first">First grade</string>
+    <string name="grade_second">Second grade</string>
+    <string name="grade_reject">Reject</string>
+    <string name="grade_result">First %1$s%% · Second %2$s%% · Reject %3$s%%</string>
+    <string name="grade_compensation_required">Compensation required</string>
+    <string name="grade_error_negative">Quantities cannot be negative</string>
+    <string name="grade_error_exceeds">Grade quantities exceed total output</string>
+
+    <!-- Cost breakdown -->
+    <string name="cost_raw_material">Raw material (shrinkage-adjusted)</string>
+    <string name="cost_weaving">Weaving / processing</string>
+    <string name="cost_dyeing_pct">Dyeing / finishing %</string>
+    <string name="cost_overhead">Factory overhead</string>
+    <string name="cost_wastage_pct">Wastage %</string>
+    <string name="cost_inspection">Inspection / packaging</string>
+    <string name="cost_vat_pct">VAT %</string>
+    <string name="cost_batch_kg">Batch weight (kg)</string>
+    <string name="cost_meters">Meters</string>
+    <string name="cost_result">Total %1$s · per m %2$s</string>
+    <string name="cost_result_per_kg">Total %1$s · per m %2$s · per kg %3$s</string>
+    <string name="cost_dyeing_guidance">Dyeing/finishing guidance: %1$s–%2$s%% of greige cost</string>
+
+    <!-- Pricing -->
+    <string name="pricing_target_revenue">Target revenue</string>
+    <string name="pricing_q_first">Q first grade</string>
+    <string name="pricing_q_second">Q second grade</string>
+    <string name="pricing_p_second">Price second grade</string>
+    <string name="pricing_p_first">Price first grade</string>
+    <string name="pricing_required_first_price">Required first-grade price: %1$s</string>
+    <string name="pricing_discount_pct">Second-grade discount: %1$s%%</string>
+    <string name="pricing_sensitivity">Sensitivity (second-grade share ±)</string>
+    <string name="pricing_sensitivity_row">%1$s pts → share %2$s%% → first price %3$s</string>
+
+    <!-- Benchmark -->
+    <string name="benchmark_industry">Industry benchmark</string>
+    <string name="benchmark_empty">Tap “Analyze this operation” to fetch benchmark insights.</string>
+
+    <!-- Settings -->
+    <string name="settings_locale">Locale</string>
+    <string name="settings_currency">Currency</string>
+    <string name="settings_arabic_digits">Arabic-Indic digits</string>
+    <string name="settings_language_en">English</string>
+    <string name="settings_language_ar">Arabic</string>
+
+    <!-- Validation / generic -->
     <string name="offline_message">Internet required for benchmark insights</string>
+    <string name="error_invalid_number">Enter a valid number</string>
 </resources>

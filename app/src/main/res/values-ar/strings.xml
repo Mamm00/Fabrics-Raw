@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">الأزهر تكس للتسعير</string>
+
+    <!-- Navigation / screen titles -->
     <string name="nav_dashboard">لوحة التحكم</string>
     <string name="nav_batches">الدفعات</string>
     <string name="nav_shrinkage">الانكماش</string>
-    <string name="nav_grade_yield">نسبة الدرجات</string>
+    <string name="nav_grade_yield">نسبة الدرجات والهدر</string>
     <string name="nav_cost">تفصيل التكلفة</string>
-    <string name="nav_pricing">التسعير</string>
+    <string name="nav_pricing">التسعير والتعويض</string>
     <string name="nav_benchmark">مؤشرات الصناعة</string>
     <string name="nav_settings">الإعدادات</string>
+
+    <!-- Common actions -->
+    <string name="action_back">رجوع</string>
+    <string name="action_calculate">احسب</string>
+    <string name="action_next_pricing">التالي: التسعير</string>
+    <string name="action_next_grade">التالي: نسبة الدرجات</string>
+    <string name="action_next_cost">التالي: تفصيل التكلفة</string>
+    <string name="action_solve_first_price">احسب سعر الدرجة الأولى</string>
     <string name="action_analyze">تحليل هذه العملية</string>
+    <string name="action_add_batch">إضافة دفعة</string>
+    <string name="action_open">فتح</string>
+    <string name="action_save_batch">حفظ الدفعة</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_batches_count">عدد الدفعات: %1$d</string>
+
+    <!-- Batch list -->
+    <string name="batch_list_empty">لا توجد دفعات بعد. أضف أول دفعة قماش.</string>
+
+    <!-- Intake -->
+    <string name="intake_title">إدخال دفعة</string>
+    <string name="intake_name_en">الاسم (إنجليزي)</string>
+    <string name="intake_name_ar">الاسم (عربي)</string>
+    <string name="intake_supplier_en">المورد (إنجليزي)</string>
+    <string name="intake_supplier_ar">المورد (عربي)</string>
+    <string name="intake_quantity">الكمية</string>
+    <string name="intake_gsm">وزن المتر المربع (جرام)</string>
+    <string name="intake_width_cm">العرض (سم)</string>
+    <string name="intake_unit_cost">تكلفة الوحدة</string>
+    <string name="intake_meters_per_bolt">أمتار / بكرة</string>
+    <string name="intake_notes">ملاحظات</string>
+    <string name="intake_error_name">الاسم مطلوب (عربي أو إنجليزي)</string>
+    <string name="intake_error_quantity">أدخل كمية صحيحة</string>
+    <string name="intake_error_unit_cost">أدخل تكلفة وحدة صحيحة</string>
+    <string name="intake_error_conversion">أدخل الوزن والعرض لتسعير الكيلو، أو أمتار البكرة للبكرات</string>
+
+    <!-- Shrinkage -->
+    <string name="shrinkage_warp_original">السداة الأصلية</string>
+    <string name="shrinkage_warp_final">السداة النهائية</string>
+    <string name="shrinkage_weft_original">اللحمة الأصلية</string>
+    <string name="shrinkage_weft_final">اللحمة النهائية</string>
+    <string name="shrinkage_allow_growth">السماح بالتمدّد (انكماش سالب)</string>
+    <string name="shrinkage_result">السداة %1$s%% · اللحمة %2$s%% · التنبيهات: %3$s</string>
+    <string name="shrinkage_flag_none">لا يوجد</string>
+
+    <!-- Grade yield -->
+    <string name="grade_total_output">إجمالي الإنتاج</string>
+    <string name="grade_first">درجة أولى</string>
+    <string name="grade_second">درجة ثانية</string>
+    <string name="grade_reject">مرفوض</string>
+    <string name="grade_result">أولى %1$s%% · ثانية %2$s%% · مرفوض %3$s%%</string>
+    <string name="grade_compensation_required">يلزم تسعير تعويضي</string>
+    <string name="grade_error_negative">الكميات لا يمكن أن تكون سالبة</string>
+    <string name="grade_error_exceeds">مجموع الدرجات يتجاوز إجمالي الإنتاج</string>
+
+    <!-- Cost breakdown -->
+    <string name="cost_raw_material">المواد الخام (بعد الانكماش)</string>
+    <string name="cost_weaving">النسج / التشغيل</string>
+    <string name="cost_dyeing_pct">الصباغة / التشطيب %</string>
+    <string name="cost_overhead">المصروفات العامة</string>
+    <string name="cost_wastage_pct">الهدر %</string>
+    <string name="cost_inspection">الفحص / التعبئة</string>
+    <string name="cost_vat_pct">ضريبة القيمة المضافة %</string>
+    <string name="cost_batch_kg">وزن الدفعة (كجم)</string>
+    <string name="cost_meters">الأمتار</string>
+    <string name="cost_result">الإجمالي %1$s · للمتر %2$s</string>
+    <string name="cost_result_per_kg">الإجمالي %1$s · للمتر %2$s · للكيلو %3$s</string>
+    <string name="cost_dyeing_guidance">إرشاد الصباغة والتشطيب: %1$s–%2$s%% من تكلفة القماش الرمادي</string>
+
+    <!-- Pricing -->
+    <string name="pricing_target_revenue">الإيراد المستهدف</string>
+    <string name="pricing_q_first">كمية الدرجة الأولى</string>
+    <string name="pricing_q_second">كمية الدرجة الثانية</string>
+    <string name="pricing_p_second">سعر الدرجة الثانية</string>
+    <string name="pricing_p_first">سعر الدرجة الأولى</string>
+    <string name="pricing_required_first_price">سعر الدرجة الأولى المطلوب: %1$s</string>
+    <string name="pricing_discount_pct">خصم الدرجة الثانية: %1$s%%</string>
+    <string name="pricing_sensitivity">حساسية السعر (تغير نسبة الدرجة الثانية ±)</string>
+    <string name="pricing_sensitivity_row">%1$s نقطة ← نسبة %2$s%% ← سعر أولى %3$s</string>
+
+    <!-- Benchmark -->
+    <string name="benchmark_industry">مؤشرات الصناعة</string>
+    <string name="benchmark_empty">اضغط «تحليل هذه العملية» لجلب مؤشرات الصناعة.</string>
+
+    <!-- Settings -->
+    <string name="settings_locale">اللغة</string>
+    <string name="settings_currency">العملة</string>
+    <string name="settings_arabic_digits">الأرقام العربية الهندية</string>
+    <string name="settings_language_en">الإنجليزية</string>
+    <string name="settings_language_ar">العربية</string>
+
+    <!-- Validation / generic -->
     <string name="offline_message">الإنترنت مطلوب لعرض مؤشرات الصناعة</string>
+    <string name="error_invalid_number">أدخل رقمًا صحيحًا</string>
 </resources>
