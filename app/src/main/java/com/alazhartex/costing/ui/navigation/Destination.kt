@@ -1,6 +1,9 @@
 package com.alazhartex.costing.ui.navigation
 
+import kotlinx.serialization.Serializable
+
 /** Navigation destinations. Serializable routes for Navigation 3. */
+@Serializable
 sealed interface Destination {
     data object Dashboard : Destination
     data object Batches : Destination

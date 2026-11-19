@@ -1,12 +1,11 @@
 package com.alazhartex.costing.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.NavDisplay
+import androidx.navigation3.ui.NavDisplay
 import com.alazhartex.costing.di.AppContainer
 import com.alazhartex.costing.ui.benchmark.BenchmarkScreen
 import com.alazhartex.costing.ui.batches.BatchListScreen
@@ -29,72 +28,74 @@ fun AppNavHost(container: AppContainer, modifier: Modifier = Modifier) {
     NavDisplay(
         backStack = backStack,
         modifier = modifier,
+        onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
         entryProvider = entryProvider {
             entry<Destination.Dashboard> {
                 DashboardScreen(
                     container = container,
-                    onOpenBatches = { backStack.add( Destination.Batches) },
-                    onOpenSettings = { backStack.add( Destination.Settings) },
+                    onOpenBatches = { backStack.add(Destination.Batches) },
+                    onOpenSettings = { backStack.add(Destination.Settings) },
                 )
             }
             entry<Destination.Batches> {
                 BatchListScreen(
                     container = container,
-                    onAddBatch = { backStack.add( Destination.Intake(null)) },
-                    onOpenBatch = { id -> backStack.add( Destination.Shrinkage(id)) },
+                    onAddBatch = { backStack.add(Destination.Intake(null)) },
+                    onOpenBatch = { id -> backStack.add(Destination.Shrinkage(id)) },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Intake> { entry ->
                 IntakeScreen(
                     container = container,
                     batchId = entry.batchId,
-                    onSaved = { backStack.removeLastOrNull() },
-                    onBack = { backStack.removeLastOrNull() },
+                    onSaved = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Shrinkage> { entry ->
                 ShrinkageScreen(
                     container = container,
                     batchId = entry.batchId,
-                    onNext = { backStack.add( Destination.Grade(entry.batchId)) },
-                    onBack = { backStack.removeLastOrNull() },
+                    onNext = { backStack.add(Destination.Grade(entry.batchId)) },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Grade> { entry ->
                 GradeScreen(
                     container = container,
                     batchId = entry.batchId,
-                    onNext = { backStack.add( Destination.Cost(entry.batchId)) },
-                    onBack = { backStack.removeLastOrNull() },
+                    onNext = { backStack.add(Destination.Cost(entry.batchId)) },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Cost> { entry ->
                 CostScreen(
                     container = container,
                     batchId = entry.batchId,
-                    onNext = { backStack.add( Destination.Pricing(entry.batchId)) },
-                    onBack = { backStack.removeLastOrNull() },
+                    onNext = { backStack.add(Destination.Pricing(entry.batchId)) },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Pricing> { entry ->
                 PricingScreen(
                     container = container,
                     batchId = entry.batchId,
-                    onBenchmark = { backStack.add( Destination.Benchmark(entry.batchId)) },
-                    onBack = { backStack.removeLastOrNull() },
+                    onBenchmark = { backStack.add(Destination.Benchmark(entry.batchId)) },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Benchmark> { entry ->
                 BenchmarkScreen(
                     container = container,
                     batchId = entry.batchId,
-                    onBack = { backStack.removeLastOrNull() },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
             entry<Destination.Settings> {
                 SettingsScreen(
                     container = container,
-                    onBack = { backStack.removeLastOrNull() },
+                    onBack = { if (backStack.size > 1) backStack.removeAt(backStack.lastIndex) },
                 )
             }
         },
