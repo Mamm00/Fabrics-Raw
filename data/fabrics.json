@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "company": "Al Azhar Tex",
+    "established": "2006",
+    "location": "Cairo, Egypt",
+    "currency": "EGP",
+    "notes": "Raw fabric master data. Prices are wholesale reference prices per meter and must be confirmed before quoting. Weight is in g/m² where known.",
+    "lastUpdated": "2026-11-19"
+  },
+  "fabrics": [
+    {
+      "id": "silk-180",
+      "name": "Silk 180",
+      "type": "Signature satin silk",
+      "weight": "180 g/m²",
+      "material": "Silk blend satin",
+      "hand": "Liquid, lustrous drape with deep gloss",
+      "bestFor": ["eveningwear", "formal dresses", "abayas"],
+      "colors": [],
+      "wholesalePricePerMeter": null,
+      "stockStatus": "in-stock",
+      "tags": ["flagship", "satin", "gloss"]
+    },
+    {
+      "id": "warsaw-l",
+      "name": "Warsaw L",
+      "type": "Airy georgette",
+      "weight": "Lightweight",
+      "material": "Warsaw cotton-georgette blend",
+      "hand": "Soft, sheer, feather-light, gentle matte hand",
+      "bestFor": ["summer dresses", "blouses", "scarves"],
+      "colors": [],
+      "wholesalePricePerMeter": null,
+      "stockStatus": "in-stock",
+      "tags": ["georgette", "sheer", "lightweight"]
+    },
+    {
+      "id": "pirlanta",
+      "name": "Pirlanta",
+      "type": "Crisp luxury satin",
+      "weight": null,
+      "material": "Pirlanta silk satin",
+      "hand": "Glossy, structured satin that holds a cut",
+      "bestFor": ["tailored dresses", "occasion wear"],
+      "colors": [],
+      "wholesalePricePerMeter": null,
+      "stockStatus": "in-stock",
+      "tags": ["satin", "structured", "signature"]
+    },
+    {
+      "id": "rotana-150",
+      "name": "Rotana 150",
+      "type": "Lightweight satin",
+      "weight": "150 g/m²",
+      "material": "Rotana blend",
+      "hand": "Soft sheen, versatile mid-season satin",
+      "bestFor": ["ready-to-wear", "daily dresses"],
+      "colors": [],
+      "wholesalePricePerMeter": 12.5,
+      "stockStatus": "in-stock",
+      "tags": ["satin", "mid-season", "workhorse"]
+    },
+    {
+      "id": "rotana-180",
+      "name": "Rotana 180",
+      "type": "Medium satin",
+      "weight": "180 g/m²",
+      "material": "Rotana blend",
+      "hand": "Fuller weight, structured drape, premium hand-feel",
+      "bestFor": ["winter collections", "formal wear"],
+      "colors": [],
+      "wholesalePricePerMeter": null,
+      "stockStatus": "in-stock",
+      "tags": ["satin", "medium-weight", "best-seller"]
+    },
+    {
+      "id": "lexus-150",
+      "name": "Lexus 150",
+      "type": "Ultra-soft satin",
+      "weight": "150 g/m²",
+      "material": "Lexus soft satin",
+      "hand": "Smooth, cool, silky with a low-key glow",
+      "bestFor": ["abayas", "loungewear", "lining"],
+      "colors": [],
+      "wholesalePricePerMeter": null,
+      "stockStatus": "in-stock",
+      "tags": ["satin", "soft", "comfortable"]
+    },
+    {
+      "id": "lexus-180",
+      "name": "Lexus 180",
+      "type": "Premium heavy satin",
+      "weight": "180 g/m²",
+      "material": "Lexus heavy satin",
+      "hand": "Deep gloss, heavy drape, luxurious feel",
+      "bestFor": ["haute couture", "bridal", "occasions"],
+      "colors": [],
+      "wholesalePricePerMeter": null,
+      "stockStatus": "in-stock",
+      "tags": ["satin", "heavy", "luxury"]
+    }
+  ]
+}
