@@ -6,3 +6,10 @@ build/
 captures/
 *.log
 schemas/
+
+# Secrets — never commit
+.env
+.env.local
+*.local.properties
+secrets.properties
+**/secrets/

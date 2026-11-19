@@ -33,6 +33,7 @@ Cost Breakdown · Pricing & Compensation · Benchmark Insight · Settings/Langua
 
 ## Docs
 - [`AGENTS.md`](AGENTS.md) — agent contract, state/UI guardrails, forbidden patterns.
+- [`docs/SECRETS.md`](docs/SECRETS.md) — secret/key handling: keys stay server-side, never in the app or Pages.
 - `CALCULATIONS.md` — formulas + AR/EN textile glossary (to be completed).
 - `RESEARCH.md` — benchmark sources (to be completed).
 - `LOCALIZATION.md` — locale/RTL strategy (to be completed).
