@@ -2,30 +2,21 @@ package com.alazhartex.costing.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-
-private val LightColors = lightColorScheme(
-    primary = Color(0xFFC8102E),
-    secondary = Color(0xFF8FC1E3),
-    tertiary = Color(0xFF14304D),
-)
-
-private val DarkColors = darkColorScheme(
-    primary = Color(0xFFFF6B81),
-    secondary = Color(0xFF8FC1E3),
-    tertiary = Color(0xFF8FB8DE),
-)
+import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
 fun AzharTexCostingTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    MaterialTheme(
-        colorScheme = if (darkTheme) DarkColors else LightColors,
-        content = content,
-    )
+    CompositionLocalProvider(
+        LocalSemanticColors provides if (darkTheme) DarkSemantic else LightSemantic,
+    ) {
+        MaterialTheme(
+            colorScheme = if (darkTheme) DarkScheme else LightScheme,
+            typography = AzharTypography,
+            content = content,
+        )
+    }
 }
