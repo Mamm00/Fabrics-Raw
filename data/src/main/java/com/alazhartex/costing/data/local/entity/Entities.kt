@@ -1,9 +1,10 @@
 package com.alazhartex.costing.data.local.entity
 
-import androidx.room3.Entity
-import androidx.room3.ForeignKey
-import androidx.room3.Index
-import androidx.room3.PrimaryKey
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
 /** Raw fabric batch. Money stored as plain decimal strings via BigDecimal columns. */
 @Entity(tableName = "fabric_batch")
@@ -46,6 +47,7 @@ data class ShrinkageRecordEntity(
     val warpPct: String,
     val weftPct: String,
     val flags: List<String>,
+    val updatedAt: Long,
 )
 
 @Entity(
@@ -69,6 +71,7 @@ data class GradeYieldEntity(
     val pctSecond: String,
     val pctReject: String,
     val compensationRequired: Boolean,
+    val updatedAt: Long,
 )
 
 @Entity(
@@ -136,6 +139,7 @@ data class AppSettingsEntity(
 )
 
 /** Embedded DTO for the sensitivity table, serialized inside the scenario row. */
+@Serializable
 data class SensitivityRowDto(
     val secondGradeDeltaPct: String,
     val secondGradeSharePct: String,

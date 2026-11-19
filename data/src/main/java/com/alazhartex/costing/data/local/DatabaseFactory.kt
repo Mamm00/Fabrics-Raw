@@ -1,7 +1,7 @@
 package com.alazhartex.costing.data.local
 
 import android.content.Context
-import androidx.room3.Room
+import androidx.room.Room
 
 /** Builds the Room database. Migrations are added here as schema versions grow. */
 object DatabaseFactory {
