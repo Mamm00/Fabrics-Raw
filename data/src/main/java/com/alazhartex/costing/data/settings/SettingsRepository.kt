@@ -4,6 +4,7 @@ import com.alazhartex.costing.data.local.dao.SettingsDao
 import com.alazhartex.costing.data.local.entity.AppSettingsEntity
 import com.alazhartex.costing.domain.rules.TextileRules
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 import java.math.BigDecimal
@@ -21,6 +22,18 @@ class SettingsRepository(private val dao: SettingsDao) {
     private val json = Json { ignoreUnknownKeys = true }
 
     fun observe(): Flow<AppSettings> = dao.observe().map { it?.toDomain() ?: defaults() }
+
+    suspend fun setLocale(locale: String) {
+        val current = observe().first()
+        update(locale = locale, arabicIndicDigits = current.arabicIndicDigits,
+            currency = current.currency, rules = current.rules)
+    }
+
+    suspend fun setArabicIndicDigits(enabled: Boolean) {
+        val current = observe().first()
+        update(locale = current.locale, arabicIndicDigits = enabled,
+            currency = current.currency, rules = current.rules)
+    }
 
     suspend fun update(
         locale: String,

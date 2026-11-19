@@ -1,12 +1,12 @@
 package com.alazhartex.costing.data.local.dao
 
-import androidx.room3.Dao
-import androidx.room3.Delete
-import androidx.room3.Insert
-import androidx.room3.OnConflictStrategy
-import androidx.room3.Query
-import androidx.room3.Transaction
-import androidx.room3.Upsert
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Upsert
 import com.alazhartex.costing.data.local.entity.BenchmarkInsightEntity
 import com.alazhartex.costing.data.local.entity.CostLayerEntity
 import com.alazhartex.costing.data.local.entity.FabricBatchEntity
@@ -22,6 +22,9 @@ interface FabricBatchDao {
 
     @Query("SELECT * FROM fabric_batch WHERE id = :id")
     fun observeById(id: String): Flow<FabricBatchEntity?>
+
+    @Query("SELECT * FROM fabric_batch WHERE id = :id")
+    suspend fun getById(id: String): FabricBatchEntity?
 
     @Transaction
     @Upsert
@@ -83,6 +86,9 @@ interface PricingScenarioDao {
 interface BenchmarkDao {
     @Query("SELECT * FROM benchmark_insight WHERE batchId = :batchId ORDER BY fetchedAt DESC LIMIT 1")
     fun observeForBatch(batchId: String): Flow<BenchmarkInsightEntity?>
+
+    @Query("SELECT * FROM benchmark_insight WHERE batchId = :batchId ORDER BY fetchedAt DESC LIMIT 1")
+    suspend fun latest(batchId: String): BenchmarkInsightEntity?
 
     @Transaction
     @Upsert

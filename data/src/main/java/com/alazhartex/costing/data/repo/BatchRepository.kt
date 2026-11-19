@@ -17,6 +17,8 @@ class BatchRepository(private val dao: FabricBatchDao) {
     fun observeById(id: String): Flow<FabricBatch?> =
         dao.observeById(id).map { it?.toDomain() }
 
+    suspend fun getById(id: String): FabricBatch? = dao.getById(id)?.toDomain()
+
     suspend fun upsert(batch: FabricBatch) = dao.upsert(batch.toEntity())
 
     suspend fun delete(id: String) = dao.deleteById(id)

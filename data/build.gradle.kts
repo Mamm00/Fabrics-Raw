@@ -17,12 +17,21 @@ android {
     sourceSets {
         getByName("main").java.srcDirs("src/main/java")
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
     implementation(project(":domain"))
 
-    implementation(libs.room.runtime)
+    // Exposed because repository/database types reference Room in the public API.
+    api(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     implementation(libs.datastore.preferences)
@@ -35,6 +44,6 @@ dependencies {
     testImplementation(libs.room.testing)
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }
