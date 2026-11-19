@@ -10,3 +10,5 @@ Locally signed build:
 gradle :app:assembleRelease
 apksigner verify --print-certs app/build/outputs/apk/release/app-release.apk
 ```
+
+Triggered at 2026-11-19T07:15Z after repository Actions settings were updated.
