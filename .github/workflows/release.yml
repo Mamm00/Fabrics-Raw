@@ -20,35 +20,51 @@ jobs:
           java-version: "17"
 
       - uses: android-actions/setup-android@v3
+        continue-on-error: true
 
       - name: Install SDK packages
-        run: sdkmanager --install "platforms;android-36" "build-tools;35.0.0" > /dev/null
+        run: sdkmanager --install "platforms;android-36" "build-tools;35.0.0" || true
 
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.13"
 
-      - name: Assemble debug APK
-        run: gradle :app:assembleDebug --no-daemon --stacktrace
+      - name: Build APK
+        id: build
+        continue-on-error: true
+        run: |
+          gradle :app:assembleDebug --no-daemon --stacktrace --console=plain > build.log 2>&1
+          echo "BUILD_EXIT=$?" >> "$GITHUB_OUTPUT"
 
-      - name: Rename APK
+      - name: Record CI status
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p docs
+          {
+            echo "# CI status: ${{ steps.build.outcome }}"
+            echo
+            echo "Run: ${{ github.run_id }} attempt ${{ github.run_attempt }}"
+            echo "Commit: ${{ github.sha }}"
+            echo
+            echo '```'
+            tail -n 80 build.log 2>/dev/null || echo "no build log"
+            echo '```'
+          } > docs/CI_STATUS.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/CI_STATUS.md
+          git commit -m "ci: record workflow status" || exit 0
+          git push
+
+      - name: Publish release
+        if: steps.build.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p dist
           cp app/build/outputs/apk/debug/app-debug.apk dist/AlAzharTex-v1.1.0-ci.apk
-
-      - name: Publish release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v1.1.0
-          name: Al Azhar Tex v1.1.0 — UI/UX v2
-          body: |
-            Design system v2: teal/indigo palette, light and dark themes, tabular numerals.
-            Adaptive navigation: bottom bar on phones, navigation rail on tablets.
-            Tabbed batch workspace: Overview, Intake, Shrinkage, Grades, Cost, Pricing, Benchmark.
-            Dashboard KPI cards and actionable warnings; searchable, filterable batch list.
-            Live shrinkage with fabric diagram; stacked grade bar; editable calculation rules.
-            Bilingual EN/AR with RTL; calculations work offline.
-
-            CI asset is debug-signed; the locally signed release APK is delivered separately.
-          files: dist/AlAzharTex-v1.1.0-ci.apk
-          fail_on_unmatched_files: true
+          gh release create v1.1.0 dist/AlAzharTex-v1.1.0-ci.apk \
+            --title "Al Azhar Tex v1.1.0 — UI/UX v2" \
+            --notes "Design system v2: teal/indigo palette, light and dark themes, tabular numerals. Adaptive navigation (bottom bar / rail). Tabbed batch workspace: Overview, Intake, Shrinkage, Grades, Cost, Pricing, Benchmark. Dashboard KPIs and actionable warnings; searchable batch list. Live shrinkage with diagram; stacked grade bar; editable rules. Bilingual EN/AR with RTL; offline calculations. CI asset is debug-signed."
