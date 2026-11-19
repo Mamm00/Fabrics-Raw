@@ -1,5 +1,6 @@
 package com.alazhartex.costing.domain.rules
 
+import kotlinx.serialization.Serializable
 import java.math.BigDecimal
 
 /**
@@ -7,6 +8,7 @@ import java.math.BigDecimal
  * Nothing in the engine may hardcode a magic number; defaults are overridable
  * from Settings and persisted in AppSettings.
  */
+@Serializable
 data class TextileRules(
     val shrinkageWarpWarnPct: BigDecimal,
     val shrinkageWarpFlagPct: BigDecimal,
