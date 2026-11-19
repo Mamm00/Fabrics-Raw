@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الأزهر تكس للتسعير</string>
+    <string name="nav_dashboard">لوحة التحكم</string>
+    <string name="nav_batches">الدفعات</string>
+    <string name="nav_shrinkage">الانكماش</string>
+    <string name="nav_grade_yield">نسبة الدرجات</string>
+    <string name="nav_cost">تفصيل التكلفة</string>
+    <string name="nav_pricing">التسعير</string>
+    <string name="nav_benchmark">مؤشرات الصناعة</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="action_analyze">تحليل هذه العملية</string>
+    <string name="offline_message">الإنترنت مطلوب لعرض مؤشرات الصناعة</string>
+</resources>
