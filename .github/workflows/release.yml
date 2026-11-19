@@ -3,8 +3,6 @@ name: Release v1.1.0
 on:
   push:
     branches: [feat/costing-engine, main]
-    paths:
-      - .github/workflows/release.yml
   workflow_dispatch:
 
 permissions:
@@ -44,14 +42,13 @@ jobs:
           tag_name: v1.1.0
           name: Al Azhar Tex v1.1.0 — UI/UX v2
           body: |
-            Design system v2: teal/indigo palette with light + dark themes, tabular numerals.
-            Adaptive navigation (bottom bar on phones, rail on tablets).
+            Design system v2: teal/indigo palette, light and dark themes, tabular numerals.
+            Adaptive navigation: bottom bar on phones, navigation rail on tablets.
             Tabbed batch workspace: Overview, Intake, Shrinkage, Grades, Cost, Pricing, Benchmark.
-            Dashboard KPI cards and actionable warnings; searchable/filterable batch list.
+            Dashboard KPI cards and actionable warnings; searchable, filterable batch list.
             Live shrinkage with fabric diagram; stacked grade bar; editable calculation rules.
-            Bilingual EN/AR with RTL. Builds offline; benchmark requires the backend.
+            Bilingual EN/AR with RTL; calculations work offline.
 
-            This CI asset is debug-signed; the locally signed release APK is attached
-            separately by the maintainer.
+            CI asset is debug-signed; the locally signed release APK is delivered separately.
           files: dist/AlAzharTex-v1.1.0-ci.apk
           fail_on_unmatched_files: true
