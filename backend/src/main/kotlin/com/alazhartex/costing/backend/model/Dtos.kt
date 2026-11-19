@@ -30,4 +30,5 @@ data class AnalyzeResponse(
     val summaryAr: String,
     val citations: List<Citation>,
     val benchmarkNotes: List<String>,
+    val stub: Boolean = false,
 )

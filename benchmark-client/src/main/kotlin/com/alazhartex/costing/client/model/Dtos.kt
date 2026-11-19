@@ -29,4 +29,5 @@ data class AnalyzeResponseDto(
     val summaryAr: String,
     val citations: List<CitationDto>,
     val benchmarkNotes: List<String>,
+    val stub: Boolean = false,
 )
