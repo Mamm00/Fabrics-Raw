@@ -16,16 +16,12 @@ android {
         applicationId = "com.alazhartex.costing"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
-        // Backend host is a build-time constant, never a secret. 10.0.2.2 reaches
-        // the host machine from the emulator; override for device testing.
         buildConfigField("String", "BACKEND_BASE_URL", "\"http://10.0.2.2:8080\"")
     }
 
-    // Release signing reads keystore.properties (git-ignored). Without it the
-    // release build stays unsigned and CI can still assemble it.
     val keystorePropsFile = rootProject.file("keystore.properties")
     signingConfigs {
         if (keystorePropsFile.exists()) {
@@ -41,8 +37,6 @@ android {
 
     buildTypes {
         release {
-            // R8 stays off for the v1 release: the 4 GB build host cannot hold
-            // R8 + lint in memory, and an unverified shrinker is worse than none.
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
