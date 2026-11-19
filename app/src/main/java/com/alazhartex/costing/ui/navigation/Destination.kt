@@ -2,16 +2,14 @@ package com.alazhartex.costing.ui.navigation
 
 import kotlinx.serialization.Serializable
 
-/** Navigation destinations. Serializable routes for Navigation 3. */
+/** Top-level tabs plus the batch workspace. Serializable routes for Navigation 3. */
 @Serializable
 sealed interface Destination {
     data object Dashboard : Destination
     data object Batches : Destination
-    data class Intake(val batchId: String?) : Destination
-    data class Shrinkage(val batchId: String) : Destination
-    data class Grade(val batchId: String) : Destination
-    data class Cost(val batchId: String) : Destination
-    data class Pricing(val batchId: String) : Destination
-    data class Benchmark(val batchId: String) : Destination
+    data class BatchDetail(val batchId: String) : Destination
     data object Settings : Destination
 }
+
+/** Sub-sections of the batch workspace, rendered as tabs inside one screen. */
+enum class BatchTab { OVERVIEW, INTAKE, SHRINKAGE, GRADES, COST, PRICING, BENCHMARK }
