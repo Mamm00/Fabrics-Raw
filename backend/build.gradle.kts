@@ -19,6 +19,6 @@ dependencies {
     testImplementation(libs.junit.jupiter)
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }

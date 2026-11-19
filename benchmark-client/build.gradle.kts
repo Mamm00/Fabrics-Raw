@@ -10,12 +10,20 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
     implementation(project(":domain"))
 
-    implementation(libs.ktor.client.core)
+    // Exposed because BenchmarkClient's constructor and factory surface Ktor types.
+    api(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.json)
@@ -27,6 +35,6 @@ dependencies {
     testImplementation(libs.coroutines.test)
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }
